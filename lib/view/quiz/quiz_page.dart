@@ -36,6 +36,16 @@ class QuizPage extends StatelessWidget {
               itemBuilder: (BuildContext context, int indexQuestion) {
                 return Column(
                   children: [
+                    Obx(() => Text(
+                          _quizPageController.valueTimer.value.toString() + "s",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .apply(color: Colors.white),
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       padding: const EdgeInsets.all(8.0),
                       margin: const EdgeInsets.all(10.0),
@@ -79,7 +89,7 @@ class QuizPage extends StatelessWidget {
                                     .lsQuestion[indexQuestion].questionid) {
                               return InkWell(
                                 onTap: () {
-                                  _quizPageController.nextQuestion(
+                                  _quizPageController.clickAnswer(
                                       indexQuestion + 1,
                                       _quizPageController
                                           .lsAnswer[indexAnswer]);
