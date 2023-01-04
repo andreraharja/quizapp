@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/controller/homepage_controller.dart';
 
+import 'homepage_play.dart';
+import 'homepage_rate.dart';
+import 'homepage_share.dart';
+import 'homepage_topic.dart';
+
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
   final HomePageController _homePageController = Get.put(HomePageController());
@@ -15,125 +20,63 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/idea.png",
-              height: MediaQuery.of(context).size.height * 0.15,
-            ),
+            homeAssetImage(context),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
-            Text(
-              'Flutter Quiz App',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .apply(color: Colors.white, fontWeightDelta: 1),
-            ),
+            homeAppName(context),
             const SizedBox(
               height: 10,
             ),
-            Text(
-              'Learn . Take Quiz . Repeat',
-              style: Theme.of(context)
-                  .textTheme
-                  .caption!
-                  .apply(color: Colors.white),
-            ),
+            homeSubtitleApp(context),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),
-            InkWell(
-              onTap: () {
-                _homePageController.toQuizPage();
-              },
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.07,
-                width: MediaQuery.of(context).size.width * 0.7,
-                decoration: BoxDecoration(
-                  color: Colors.lightBlue,
-                  border: Border.all(
-                    color: Colors.lightBlue,
-                    style: BorderStyle.solid,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: Center(
-                  child: Text(
-                    "PLAY",
-                    style: Theme.of(context)
-                        .textTheme
-                        .button!
-                        .apply(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
+            HomePagePlay(homePageController: _homePageController),
             const SizedBox(
               height: 10,
             ),
-            InkWell(
-              onTap: () {
-                _homePageController.toTopicPage();
-              },
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.07,
-                width: MediaQuery.of(context).size.width * 0.7,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.lightBlueAccent,
-                    style: BorderStyle.solid,
-                    width: 2.0,
-                  ),
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: Center(
-                  child: Text(
-                    "TOPICS",
-                    style: Theme.of(context)
-                        .textTheme
-                        .button!
-                        .apply(color: Colors.lightBlueAccent),
-                  ),
-                ),
-              ),
-            ),
+            HomePageTopics(homePageController: _homePageController),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton.icon(
-                    onPressed: () {
-                      _homePageController.shareLink();
-                    },
-                    icon: const Icon(Icons.share),
-                    label: const Text(
-                      'Share',
-                      style: TextStyle(color: Colors.white),
-                    )),
+                HomePageShare(homePageController: _homePageController),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.1,
                 ),
-                TextButton.icon(
-                    onPressed: () {
-                      _homePageController.dialogRate();
-                    },
-                    icon: const Icon(
-                      Icons.star_rate,
-                      color: Colors.yellow,
-                    ),
-                    label: const Text(
-                      'Rate Us',
-                      style: TextStyle(color: Colors.white),
-                    ))
+                HomePageRate(homePageController: _homePageController)
               ],
             )
           ],
         ),
       ),
+    );
+  }
+
+  Widget homeSubtitleApp(BuildContext context) {
+    return Text(
+      'Learn . Take Quiz . Repeat',
+      style: Theme.of(context).textTheme.caption!.apply(color: Colors.white),
+    );
+  }
+
+  Widget homeAppName(BuildContext context) {
+    return Text(
+      'Flutter Quiz App',
+      style: Theme.of(context)
+          .textTheme
+          .titleMedium!
+          .apply(color: Colors.white, fontWeightDelta: 1),
+    );
+  }
+
+  Widget homeAssetImage(BuildContext context) {
+    return Image.asset(
+      "assets/idea.png",
+      height: MediaQuery.of(context).size.height * 0.15,
     );
   }
 }
