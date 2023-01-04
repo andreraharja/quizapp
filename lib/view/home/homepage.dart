@@ -106,7 +106,9 @@ class MyHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      _homePageController.shareLink();
+                    },
                     icon: const Icon(Icons.share),
                     label: const Text(
                       'Share',
@@ -116,7 +118,9 @@ class MyHomePage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.1,
                 ),
                 TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      _homePageController.dialogRate();
+                    },
                     icon: const Icon(
                       Icons.star_rate,
                       color: Colors.yellow,

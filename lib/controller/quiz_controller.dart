@@ -12,7 +12,7 @@ class QuizPageController extends GetxController {
   var lsQuestion = List<MQuestion>.empty().obs;
   var lsAnswer = List<MAnswer>.empty().obs;
   var mainPageController = PageController();
-  List<MAnswer> selected = [];
+  List<MAnswer> lsSelected = [];
 
   QuizPageController(this.arguments);
   Map arguments;
@@ -26,14 +26,19 @@ class QuizPageController extends GetxController {
   }
 
   void nextQuestion(int indexQuestion, MAnswer mAnswer) {
+    lsSelected.add(mAnswer);
+    lsSelected.toSet();
     if (indexQuestion == lsQuestion.length) {
-      Get.off(() => const ResultPage(),
-          arguments: {"question": lsQuestion, "answer": selected});
+      List<MAnswer> lsCorrect = lsAnswer.where((e) => e.score == 1).toList();
+      lsCorrect.sort((a, b) => a.questionid!.compareTo(b.questionid!));
+      Get.off(() => ResultPage(), arguments: {
+        "question": lsQuestion,
+        "answer": lsSelected,
+        "correct": lsCorrect
+      });
     } else {
-      selected.add(mAnswer);
-      selected.toSet();
       mainPageController.jumpToPage(indexQuestion);
-      for (var element in selected) {
+      for (var element in lsSelected) {
         log(element.answertext!);
       }
     }
