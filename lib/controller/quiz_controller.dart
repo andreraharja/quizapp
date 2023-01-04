@@ -38,9 +38,6 @@ class QuizPageController extends GetxController {
       });
     } else {
       mainPageController.jumpToPage(indexQuestion);
-      for (var element in lsSelected) {
-        log(element.answertext!);
-      }
     }
   }
 
