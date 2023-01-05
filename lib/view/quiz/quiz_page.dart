@@ -16,32 +16,34 @@ class QuizPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: QuizPageAppbar(quizPageController: _quizPageController),
-      body: Obx(() => Container(
-            color: Colors.blue.shade900,
-            child: PageView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: _quizPageController.mainPageController,
-              itemCount: _quizPageController.lsQuestion.length,
-              itemBuilder: (BuildContext context, int indexQuestion) {
-                return Column(
-                  children: [
-                    QuizPageTimer(quizPageController: _quizPageController),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    QuizPageQuestion(
-                      quizPageController: _quizPageController,
-                      indexQuestion: indexQuestion,
-                    ),
-                    QuizPageAnswer(
-                      quizPageController: _quizPageController,
-                      indexQuestion: indexQuestion,
-                    )
-                  ],
-                );
-              },
-            ),
-          )),
+      body: Obx(() => _quizPageController.isLoading.value
+          ? const Center(child: CircularProgressIndicator())
+          : Container(
+              color: Colors.blue.shade900,
+              child: PageView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: _quizPageController.mainPageController,
+                itemCount: _quizPageController.lsQuestion.length,
+                itemBuilder: (BuildContext context, int indexQuestion) {
+                  return Column(
+                    children: [
+                      QuizPageTimer(quizPageController: _quizPageController),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      QuizPageQuestion(
+                        quizPageController: _quizPageController,
+                        indexQuestion: indexQuestion,
+                      ),
+                      QuizPageAnswer(
+                        quizPageController: _quizPageController,
+                        indexQuestion: indexQuestion,
+                      )
+                    ],
+                  );
+                },
+              ),
+            )),
     );
   }
 }
