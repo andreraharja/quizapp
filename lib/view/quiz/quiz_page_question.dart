@@ -4,8 +4,8 @@ import '../../controller/quiz_controller.dart';
 class QuizPageQuestion extends StatelessWidget {
   const QuizPageQuestion(
       {Key? key,
-        required QuizPageController quizPageController,
-        required this.indexQuestion})
+      required QuizPageController quizPageController,
+      required this.indexQuestion})
       : _quizPageController = quizPageController,
         super(key: key);
 
@@ -37,7 +37,11 @@ class QuizPageQuestion extends StatelessWidget {
             ),
             Expanded(
               child: Image.network(
-                  _quizPageController.lsQuestion[indexQuestion].questionimg!),
+                _quizPageController.lsQuestion[indexQuestion].questionimg!,
+                errorBuilder: (context, exception, stackTrace) {
+                  return const Icon(Icons.image_not_supported);
+                },
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -48,4 +52,3 @@ class QuizPageQuestion extends StatelessWidget {
     );
   }
 }
-

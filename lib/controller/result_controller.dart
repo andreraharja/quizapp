@@ -50,8 +50,7 @@ class ResultPageController extends GetxController {
       ByteData? byteData = await image.toByteData(format: ImageByteFormat.png);
       Uint8List pngBytes = byteData!.buffer.asUint8List();
       final appDir = await getApplicationDocumentsDirectory();
-      DateTime now = DateTime.now();
-      var nameQuiz = now.toString().removeAllWhitespace;
+      var nameQuiz = "This is my score in Quiz App";
       file = await File('${appDir.path}/$nameQuiz.png').create();
       await file?.writeAsBytes(pngBytes);
       await Share.shareFiles(

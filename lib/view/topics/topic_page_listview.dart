@@ -13,35 +13,49 @@ class TopicPageListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Obx(() => ListView.builder(
-          itemCount: _topicController.lsTopic.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                _topicController
-                    .toQuizPage(_topicController.lsTopic[index].topicid!);
-              },
-              child: Container(
-                padding: const EdgeInsets.all(15.0),
-                margin: const EdgeInsets.only(bottom: 10.0),
-                decoration: BoxDecoration(color: Colors.blue.shade800),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      _topicController.lsTopic[index].topicname!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .apply(color: Colors.white70),
-                    ),
-                    const Icon(Icons.arrow_right, color: Colors.white70),
-                  ],
+    return Obx(() => _topicController.isLoading.value
+        ? const CircularProgressIndicator()
+        : showListTopic(context));
+  }
+
+  Widget showListTopic(BuildContext context) {
+    if (_topicController.lsTopic.isNotEmpty) {
+      return Expanded(
+        child: ListView.builder(
+            itemCount: _topicController.lsTopic.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  _topicController
+                      .toQuizPage(_topicController.lsTopic[index].topicid!);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(15.0),
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  decoration: BoxDecoration(color: Colors.blue.shade800),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        _topicController.lsTopic[index].topicname!,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .apply(color: Colors.white70),
+                      ),
+                      const Icon(Icons.arrow_right, color: Colors.white70),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          })),
-    );
+              );
+            }),
+      );
+    } else {
+      return Text(
+        'Topic Not Found',
+        style:
+            Theme.of(context).textTheme.titleMedium!.apply(color: Colors.white),
+      );
+    }
   }
 }
